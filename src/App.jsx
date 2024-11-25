@@ -15,6 +15,8 @@ function App() {
             <th scope="col">Picture</th>
             <th scope="col">Name</th>
             <th scope="col">Popularity</th>
+            <th scope="col">Won an Oscar</th>
+            <th scope="col">Won an Emmy</th>
           </tr>
         </thead>
         <tbody>
@@ -23,6 +25,8 @@ function App() {
               <td><img width ="75px" src={p.pictureUrl} alt={p.name} /></td>
               <td>{p.name}</td>
               <td>{p.popularity.toFixed(2)}</td>
+              {p.wonOscar ? <td>🏆</td> : <td></td>}
+              {p.wonEmmy ? <td>🌟</td> : <td></td>}
             </tr>
           ))}
         </tbody>
