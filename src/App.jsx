@@ -51,6 +51,13 @@ function App() {
     ));
     setContacts(contactsByName);
   }
+  // const handleDelete = (event) => {
+  const handleDelete = (id) => {
+    const deleteFilter = producers.filter((p) => (
+      p.id !== id // p.id !== event.target.id 
+    ))
+    setContacts(deleteFilter);
+  }
 
   return (
     <div className="App">
@@ -68,6 +75,7 @@ function App() {
             <th scope="col">Popularity</th>
             <th scope="col">Won an Oscar</th>
             <th scope="col">Won an Emmy</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -78,6 +86,8 @@ function App() {
               <td>{p.popularity.toFixed(2)}</td>
               {p.wonOscar ? <td>🏆</td> : <td></td>}
               {p.wonEmmy ? <td>🌟</td> : <td></td>}
+              {/* Opción idonea */}
+              <td><button name="Delete" id={p.id} onClick={() => handleDelete(p.id)} className="mt-5" type="button">Delete</button></td> {/**Opción  onClick={(event) => handleDelete(event)}*/}
             </tr>
           ))}
         </tbody>
