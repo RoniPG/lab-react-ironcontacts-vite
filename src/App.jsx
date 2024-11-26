@@ -61,14 +61,14 @@ function App() {
 
   return (
     <div className="App">
-      <h1>LAB | React IronContacts</h1>
-      <div className="d-flex container gap-2">
-        <button onClick={() => handleRandom()} className="mt-5" type="button">Add Random Contact</button>
-        <button onClick={() => handleSortPopularity()} className="mt-5" type="button">Sort by popularity</button>
-        <button onClick={() => handleSortName()} className="mt-5" type="button">Sort by name</button>
+      <h1 className="text-center display-4 text-primary my-4" > 🎬 LAB | React IronContacts 🎥 </h1>
+      <div className="d-flex justify-content-center gap-2 mb-4">
+        <button onClick={() => handleRandom()} className="btn btn-primary" type="button">Add Random Contact</button>
+        <button onClick={() => handleSortPopularity()} className="btn btn-secondary" type="button">Sort by popularity</button>
+        <button onClick={() => handleSortName()} className="btn btn-info" type="button">Sort by name</button>
       </div>
-      <table className="table mt-5">
-        <thead>
+      <table className="table table-hover">
+        <thead className="table-dark">
           <tr>
             <th scope="col">Picture</th>
             <th scope="col">Name</th>
@@ -80,14 +80,14 @@ function App() {
         </thead>
         <tbody>
           {producers.map(p => (
-            <tr key={p.id}>
-              <td><img width="75px" src={p.pictureUrl} alt={p.name} /></td>
-              <td>{p.name}</td>
-              <td>{p.popularity.toFixed(2)}</td>
-              {p.wonOscar ? <td>🏆</td> : <td></td>}
-              {p.wonEmmy ? <td>🌟</td> : <td></td>}
+            <tr key={p.id} >
+              <td><img className="rounded" width="75px" src={p.pictureUrl} alt={p.name} /></td>
+              <td className="pt-5">{p.name}</td>
+              <td className="pt-5">{p.popularity.toFixed(2)}</td>
+              {p.wonOscar ? <td className="fs-1 pt-4 ps-4">🏆</td> : <td></td>}
+              {p.wonEmmy ? <td className="fs-1 pt-4">🌟</td> : <td></td>}
               {/* Opción idonea */}
-              <td><button name="Delete" id={p.id} onClick={() => handleDelete(p.id)} className="mt-5" type="button">Delete</button></td> {/**Opción  onClick={(event) => handleDelete(event)}*/}
+              <td><button name="Delete" id={p.id} onClick={() => handleDelete(p.id)} className="mt-4" type="button">Delete</button></td> {/**Opción  onClick={(event) => handleDelete(event)}*/}
             </tr>
           ))}
         </tbody>
