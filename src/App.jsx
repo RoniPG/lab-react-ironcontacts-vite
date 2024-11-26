@@ -4,10 +4,10 @@ import contacts from "./contacts.json"
 
 function App() {
   const [producers, setContacts] = useState(contacts
-    .filter((c, i) => i <= 4)
+    .filter((contact, index) => index <= 4)  //Get firs 5 contacts
   )
   // const handleRandom = () => {
-  //   const RandomIndex = Math.ceil(Math.random() * contacts.length)
+  //   const RandomIndex = Math.ceil(Math.random() * contacts.length) //-->Floor
   //   const contact = contacts.filter((c, i) => i === RandomIndex)
   //   producers.forEach(p => {
   //     if (p.id === contact.id) {
@@ -19,28 +19,47 @@ function App() {
   // }
   const handleRandom = () => {
     // Generar un índice aleatorio válido
-    const randomIndex = Math.floor(Math.random() * contacts.length); 
-  
+    const randomIndex = Math.floor(Math.random() * contacts.length);
+
     // Obtener el contacto aleatorio
     const contact = contacts[randomIndex];
-  
-    // Comprobar si ya existe en producers
+
+    // Comrobar si ya existeen producers
     const exists = producers.some((p) => p.id === contact.id);
-  
+
     if (!exists) {
       // Si no existe, agregarlo a contacts
       setContacts([contact, ...producers]);
-    } else if (contacts.length > producers.length){
+    } else if (contacts.length > producers.length) {
       // Si existe, intentar nuevamente
       handleRandom();
     } else {
       window.alert("Ya tienes todos los contactos importados")
     }
   };
+  const handleSortPopularity = () => {
+    const copyArray = Array.from(producers);
+    const contactsByPopularity = copyArray.sort((producerA, producerB) => (
+      producerB.popularity - producerA.popularity
+    ));
+    setContacts(contactsByPopularity);
+  }
+  const handleSortName = () => {
+    const copyArray = Array.from(producers);
+    const contactsByName = copyArray.sort((producerA, producerB) => (
+      producerA.name.localeCompare(producerB.name)
+    ));
+    setContacts(contactsByName);
+  }
+
   return (
     <div className="App">
       <h1>LAB | React IronContacts</h1>
-      <button onClick={() => handleRandom()} className="mt-5" type="button">Add Random Contact</button>
+      <div className="d-flex container gap-2">
+        <button onClick={() => handleRandom()} className="mt-5" type="button">Add Random Contact</button>
+        <button onClick={() => handleSortPopularity()} className="mt-5" type="button">Sort by popularity</button>
+        <button onClick={() => handleSortName()} className="mt-5" type="button">Sort by name</button>
+      </div>
       <table className="table mt-5">
         <thead>
           <tr>
@@ -52,9 +71,9 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {producers.map( p => (
+          {producers.map(p => (
             <tr key={p.id}>
-              <td><img width ="75px" src={p.pictureUrl} alt={p.name} /></td>
+              <td><img width="75px" src={p.pictureUrl} alt={p.name} /></td>
               <td>{p.name}</td>
               <td>{p.popularity.toFixed(2)}</td>
               {p.wonOscar ? <td>🏆</td> : <td></td>}
